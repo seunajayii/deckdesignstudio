@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pitch Decks That Win — Free Deck Audit</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --ink: #0d0d0d;
+      --cream: #f5f0e8;
+      --gold: #c8a96e;
+      --gold-light: #e8d4a8;
+      --muted: #6b6660;
+      --border: rgba(200, 169, 110, 0.25);
+      --surface: #161410;
+      --surface2: #1f1c18;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--ink);
+      color: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    /* Noise overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.6;
+    }
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.4rem 5vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      background: rgba(13,13,13,0.85);
+      backdrop-filter: blur(12px);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--gold);
+    }
+    .nav-cta {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink);
+      background: var(--gold);
+      padding: 0.55rem 1.4rem;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      text-decoration: none;
+    }
+    .nav-cta:hover { opacity: 0.85; }
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 14vh 5vw 10vh;
+      position: relative;
+    }
+    .hero-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.2s forwards;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 1px;
+      background: var(--gold);
+    }
+    .hero-headline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.5rem, 9vw, 8.5rem);
+      font-weight: 700;
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      max-width: 900px;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.35s forwards;
+    }
+    .hero-headline em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    .hero-sub {
+      margin-top: 2.5rem;
+      font-size: 1.05rem;
+      font-weight: 300;
+      color: rgba(245,240,232,0.65);
+      max-width: 480px;
+      line-height: 1.8;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.5s forwards;
+    }
+    .hero-proof {
+      margin-top: 3.5rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.65s forwards;
+    }
+    .proof-stat {
+      border-left: 2px solid var(--gold);
+      padding-left: 1.2rem;
+    }
+    .proof-stat .number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--gold-light);
+      line-height: 1;
+    }
+    .proof-stat .label {
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      margin-top: 0.3rem;
+    }
+    .hero-scroll {
+      position: absolute;
+      bottom: 3.5rem;
+      right: 5vw;
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.7rem;
+      opacity: 0;
+      animation: fadeUp 1s 1s forwards;
+    }
+    .hero-scroll::after {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 50px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      animation: scrollLine 2s 1.2s infinite;
+    }
+    /* ── DIVIDER ── */
+    .marquee-bar {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 0;
+      overflow: hidden;
+      background: var(--surface);
+    }
+    .marquee-track {
+      display: flex;
+      gap: 3rem;
+      width: max-content;
+      animation: marquee 22s linear infinite;
+    }
+    .marquee-item {
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .marquee-item::after {
+      content: '◆';
+      font-size: 0.45rem;
+      color: var(--gold);
+    }
+    /* ── WHAT I DO ── */
+    .section {
+      padding: 8rem 5vw;
+      position: relative;
+    }
+    .section-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 3rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 1px;
+      background: var(--gold);
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      font-weight: 600;
+      line-height: 1.1;
+      max-width: 720px;
+      margin-bottom: 4rem;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1px;
+      border: 1px solid var(--border);
+      background: var(--border);
+    }
+    .service-card {
+      background: var(--surface);
+      padding: 2.5rem 2rem;
+      transition: background 0.3s;
+    }
+    .service-card:hover { background: var(--surface2); }
+    .service-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--border);
+      line-height: 1;
+      margin-bottom: 1.5rem;
+    }
+    .service-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 0.8rem;
+      color: var(--cream);
+    }
+    .service-desc {
+      font-size: 0.88rem;
+      color: rgba(245,240,232,0.55);
+      line-height: 1.8;
+    }
+    /* ── PROOF BAND ── */
+    .proof-band {
+      background: var(--gold);
+      padding: 5rem 5vw;
+      position: relative;
+      overflow: hidden;
+    }
+    .proof-band::before {
+      content: '"';
+      position: absolute;
+      top: -2rem;
+      left: 3vw;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20rem;
+      font-weight: 700;
+      color: rgba(0,0,0,0.08);
+      line-height: 1;
+      pointer-events: none;
+    }
+    .proof-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.6rem, 3.5vw, 2.8rem);
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.25;
+      max-width: 820px;
+      position: relative;
+    }
+    .proof-meta {
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(13,13,13,0.55);
+    }
+    /* ── AUDIT OFFER ── */
+    .audit-section {
+      padding: 8rem 5vw;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    @media (max-width: 768px) {
+      .audit-section { grid-template-columns: 1fr; gap: 3rem; }
+    }
+    .audit-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: rgba(200,169,110,0.12);
+      border: 1px solid var(--border);
+      padding: 0.5rem 1rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 2rem;
+    }
+    .audit-badge::before {
+      content: '★';
+      font-size: 0.65rem;
+    }
+    .audit-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 600;
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
+    }
+    .audit-body {
+      font-size: 0.92rem;
+      color: rgba(245,240,232,0.6);
+      line-height: 1.85;
+      margin-bottom: 2rem;
+    }
+    .audit-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+    .audit-list li {
+      font-size: 0.88rem;
+      color: rgba(245,240,232,0.7);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.8rem;
+    }
+    .audit-list li::before {
+      content: '→';
+      color: var(--gold);
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+    /* ── FORM ── */
+    .form-wrapper {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 3rem 2.5rem;
+      position: relative;
+    }
+    .form-wrapper::before {
+      content: '';
+      position: absolute;
+      top: -1px; left: -1px; right: -1px;
+      height: 3px;
+      background: var(--gold);
+    }
+    .form-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .form-subtitle {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+    .field {
+      margin-bottom: 1.4rem;
+    }
+    label {
+      display: block;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+    input, select, textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(200,169,110,0.2);
+      color: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 300;
+      padding: 0.85rem 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+      appearance: none;
+    }
+    input::placeholder, textarea::placeholder { color: rgba(245,240,232,0.25); }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--gold);
+      background: rgba(200,169,110,0.06);
+    }
+    select option { background: #1f1c18; }
+    textarea { resize: vertical; min-height: 90px; }
+    .submit-btn {
+      width: 100%;
+      background: var(--gold);
+      color: var(--ink);
+      border: none;
+      padding: 1.05rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s;
+      margin-top: 0.5rem;
+    }
+    .submit-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+    .submit-btn:active { transform: translateY(0); }
+    .form-note {
+      font-size: 0.72rem;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 1rem;
+    }
+    /* ── SUCCESS STATE ── */
+    .success-msg {
+      display: none;
+      text-align: center;
+      padding: 2rem 0;
+    }
+    .success-msg .checkmark {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    .success-msg h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+    }
+    .success-msg p {
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 5vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--gold);
+    }
+    .footer-note {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    @keyframes scrollLine {
+      0%   { transform: scaleY(0); transform-origin: top; }
+      50%  { transform: scaleY(1); transform-origin: top; }
+      100% { transform: scaleY(0); transform-origin: bottom; }
+    }
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">The Deck Studio</div>
+    <a href="#audit" class="nav-cta">Get Free Audit</a>
+  </nav>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-eyebrow">For founders raising capital</div>
+    <h1 class="hero-headline">
+      Your story<br>should <em>open doors,</em><br>not close them.
+    </h1>
+    <p class="hero-sub">
+      We craft investor-ready pitch decks that communicate your vision with clarity, credibility, and conviction — so you walk into every room prepared to win.
+    </p>
+    <div class="hero-proof">
+      <div class="proof-stat">
+        <div class="number">$150K+</div>
+        <div class="label">In contracts won — Q4 2025</div>
+      </div>
+      <div class="proof-stat">
+        <div class="number">Free</div>
+        <div class="label">Deck audit for new clients</div>
+      </div>
+      <div class="proof-stat">
+        <div class="number">48 hrs</div>
+        <div class="label">Typical turnaround time</div>
+      </div>
+    </div>
+    <div class="hero-scroll">Scroll</div>
+  </section>
+  <!-- MARQUEE -->
+  <div class="marquee-bar" aria-hidden="true">
+    <div class="marquee-track">
+      <span class="marquee-item">Seed Rounds</span>
+      <span class="marquee-item">Series A</span>
+      <span class="marquee-item">Contract Pitches</span>
+      <span class="marquee-item">Accelerator Applications</span>
+      <span class="marquee-item">Grant Proposals</span>
+      <span class="marquee-item">Angel Investors</span>
+      <span class="marquee-item">Demo Days</span>
+      <span class="marquee-item">Seed Rounds</span>
+      <span class="marquee-item">Series A</span>
+      <span class="marquee-item">Contract Pitches</span>
+      <span class="marquee-item">Accelerator Applications</span>
+      <span class="marquee-item">Grant Proposals</span>
+      <span class="marquee-item">Angel Investors</span>
+      <span class="marquee-item">Demo Days</span>
+    </div>
+  </div>
+  <!-- WHAT WE DO -->
+  <section class="section reveal">
+    <div class="section-label">What we do</div>
+    <h2 class="section-title">We turn complex ideas into irresistible pitches</h2>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-number">01</div>
+        <div class="service-title">Narrative Strategy</div>
+        <p class="service-desc">We find the through-line of your business story — the arc that makes investors lean forward and remember you after the meeting ends.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-number">02</div>
+        <div class="service-title">Investor-Ready Design</div>
+        <p class="service-desc">Visual decks that look the part. Clean, structured, and calibrated to how investors read and decide — not how designers like to impress.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-number">03</div>
+        <div class="service-title">Pitch Coaching</div>
+        <p class="service-desc">We don't just hand you a file. We walk you through the deck, sharpen your talking points, and prepare you for tough questions.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-number">04</div>
+        <div class="service-title">Deck Audits</div>
+        <p class="service-desc">Already have a deck? We review what's working, what's killing your chances, and give you a prioritised action plan to fix it.</p>
+      </div>
+    </div>
+  </section>
+  <!-- PROOF BAND -->
+  <div class="proof-band reveal">
+    <blockquote class="proof-quote">
+      "A client we worked with in Q4 2025 used their pitch deck to win over $150,000 in new contracts — in a single quarter."
+    </blockquote>
+    <div class="proof-meta">Client result · Q4 2025</div>
+  </div>
+  <!-- AUDIT + FORM -->
+  <section class="audit-section" id="audit">
+    <div class="reveal">
+      <div class="audit-badge">Limited spots available</div>
+      <h2 class="audit-title">Get a free audit of your current deck</h2>
+      <p class="audit-body">
+        Not sure if your deck is investor-ready? We'll review it for free and tell you exactly what needs to change — no obligation, no fluff.
+      </p>
+      <ul class="audit-list">
+        <li>Story structure &amp; narrative flow assessment</li>
+        <li>Visual clarity &amp; design feedback</li>
+        <li>Investor-lens review of your problem/solution framing</li>
+        <li>3 priority fixes you can action immediately</li>
+        <li>A quick follow-up call if you want to dig deeper</li>
+      </ul>
+    </div>
+    <div class="reveal">
+      <div class="form-wrapper" id="form-block">
+        <h3 class="form-title">Claim Your Free Audit</h3>
+        <p class="form-subtitle">Takes 2 minutes. We'll be in touch within 24 hours.</p>
+        <div id="intake-form">
+          <div class="field">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" placeholder="Jane Okafor" required />
+          </div>
+          <div class="field">
+            <label for="email">Work Email</label>
+            <input type="email" id="email" placeholder="jane@mystartup.com" required />
+          </div>
+          <div class="field">
+            <label for="company">Company / Startup Name</label>
+            <input type="text" id="company" placeholder="Acme Inc." />
+          </div>
+          <div class="field">
+            <label for="stage">Funding Stage</label>
+            <select id="stage">
+              <option value="" disabled selected>Select your stage</option>
+              <option>Pre-Seed / Bootstrapped</option>
+              <option>Seed</option>
+              <option>Series A</option>
+              <option>Raising for a contract / grant</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="status">Do you have an existing deck?</label>
+            <select id="status">
+              <option value="" disabled selected>Select one</option>
+              <option>Yes — I want it reviewed</option>
+              <option>I have a draft but it's rough</option>
+              <option>No deck yet — starting from scratch</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="goal">What's your biggest pitch challenge right now?</label>
+            <textarea id="goal" placeholder="e.g. I'm not sure how to structure the financial slide, or investors keep asking the same objection..."></textarea>
+          </div>
+          <button class="submit-btn" onclick="handleSubmit()">Send My Request →</button>
+          <p class="form-note">No spam. No hard sells. Just honest, useful feedback.</p>
+        </div>
+        <div class="success-msg" id="success">
+          <div class="checkmark">✦</div>
+          <h3>You're on the list.</h3>
+          <p>We'll review your details and reach out within 24 hours.<br>Check your inbox — something good is coming.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">The Deck Studio</div>
+    <div class="footer-note">© 2025 · Built for founders who mean business.</div>
+  </footer>
+  <script>
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    // Form submit
+    function handleSubmit() {
+      const name   = document.getElementById('name').value.trim();
+      const email  = document.getElementById('email').value.trim();
+      const stage  = document.getElementById('stage').value;
+      const status = document.getElementById('status').value;
+      if (!name || !email) {
+        alert('Please fill in your name and email to continue.');
+        return;
+      }
+      // In production: replace with your form backend (Formspree, Notion API, Airtable, etc.)
+      console.log('Lead captured:', { name, email, stage, status });
+      document.getElementById('intake-form').style.display = 'none';
+      document.getElementById('success').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
