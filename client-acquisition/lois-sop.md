@@ -135,7 +135,7 @@ If you can't clearly answer YES to one of those — don't add them. Quality over
 ### If they reply positively ("interested", "tell me more", "how does this work"):
 1. **Flag Seun within 1 hour** via WhatsApp: "Hot lead: [Name] at [Company] replied positively to the [service] DM. Here's what they said: [paste reply]"
 2. Send a reply that: expands on the specific value in 2-3 sentences + ends with a clear CTA to book a call
-3. Include Seun's booking link: [INSERT BOOKING LINK]
+3. Include Seun's booking link: https://calendly.com/seun-leadingman/client-discovery-plm
 4. Update status to **Hot** in Lead Tracker
 5. Set follow-up date to 2 days later in case they don't book
 
